@@ -133,9 +133,9 @@ void runPicoDpmAnaMaker(const Char_t *inputFile="test.list", const Char_t *outpu
     cout << "Unknown makerMode! Exiting..." << endl;
     exit(1);
   }
-  StPicoDstMaker::PicoIoMode myMode = StPicoDstMaker::PicoIoMode::IoRead; //SL16j: See StRoot/StPicoDstMaker/StpicodstMaker.h: 28: enum PicoIoMode {IoWrite=1, IoRead=2};
-  StPicoDstMaker* picoDstMaker = new StPicoDstMaker(myMode, sInputFile, "picoDstMaker");
-//  StPicoDstMaker* picoDstMaker = new StPicoDstMaker(2, sInputFile, "picoDstMaker"); //for local testing only
+  //StPicoDstMaker::PicoIoMode myMode = StPicoDstMaker::PicoIoMode::IoRead; //SL16j: See StRoot/StPicoDstMaker/StpicodstMaker.h: 28: enum PicoIoMode {IoWrite=1, IoRead=2};
+  //StPicoDstMaker* picoDstMaker = new StPicoDstMaker(myMode, sInputFile, "picoDstMaker");
+  StPicoDstMaker* picoDstMaker = new StPicoDstMaker(StPicoDstMaker::IoRead, sInputFile, "picoDstMaker"); //for local testing only
   StPicoDpmAnaMaker* picoDpmAnaMaker = new StPicoDpmAnaMaker("picoDpmAnaMaker", picoDstMaker, outputFile, sInputListHF);
   picoDpmAnaMaker->setMakerMode(makerMode);
   picoDpmAnaMaker->setDecayChannel(StPicoDpmAnaMaker::kChannel1);//kvapil
