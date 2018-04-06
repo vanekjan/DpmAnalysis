@@ -327,7 +327,7 @@ int StPicoDpmAnaMaker::MakeHF() {
         if (!trk) continue;
         //StPhysicalHelixD helix = trk->helix(); //SL16d
 				StPhysicalHelixD helix = trk->helix(mPicoDst->event()->bField()); //SL16j, Vanek
-        StThreeVectorF momentum = trk->gMom(pVtx, mPicoDst->event()->bField());
+        StThreeVectorF momentum = trk->gMom(pVtx, mPicoDst->event()->bField()); //bFiled NOT in kilogauss - properly computed inside gMom(...) function in StPicoTrack
 
         //if (!(trk->nHitsFit()>=20)) continue;
 				//if (!(fabs(momentum.pseudoRapidity()) <= 1.0)) continue;
@@ -836,7 +836,7 @@ bool StPicoDpmAnaMaker::isCloseTracks(StPicoTrack const * const trk1, StPicoTrac
 //  StThreeVectorF const p1Mom = p1Helix.momentum(bField * kilogauss); //SL16d
 //  StThreeVectorF const p2Mom = p2Helix.momentum(bField * kilogauss);
 
-	StThreeVectorF const p1Mom = trk1->gMom(); //SL16j, Vanek
+	StThreeVectorF const p1Mom = trk1->gMom(); //SL16j, Vanek - is computed from helix and filed inside StPicoTrack
   StThreeVectorF const p2Mom = trk2->gMom();
   StPhysicalHelixD const p1StraightLine(p1Mom, trk1->origin(), 0, trk1->charge());
   StPhysicalHelixD const p2StraightLine(p2Mom, trk2->origin(), 0, trk2->charge());

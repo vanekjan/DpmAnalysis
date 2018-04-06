@@ -91,7 +91,7 @@ mkdir -p report err log list csh
 # -----------------------------------------------
 
 # -- check for prerequisits and create links
-set folders=".sl64_gcc482 run14AuAu200GeVPrescales"
+set folders=".sl73_gcc485 run14AuAu200GeVPrescales"
 
 echo -n "Checking prerequisits folders ...  "
 foreach folder ( $folders ) 
