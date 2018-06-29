@@ -2,4 +2,4 @@
 
 starver SL16j
 
-root4star -l -b -q 'runPicoDpmAnaMaker.C("test_new.list","output_test",0,"BadRunList_MB.list","picoHFtree","root://xrdstar.rcf.bnl.gov:1095//home/starlib/home/starreco/reco/AuAu_200_production_2016/ReversedFullField/P16ij/2016",0)'
+root4star -l -b -q 'runPicoDpmAnaMaker.C("test_new.list","output_test",0,"BadRunList_MB.list","picoHFtree","/project/projectdirs/starprod/picodsts/Run14/AuAu/200GeV/physics2/P16id/117/15117064/st_physics_15117064_raw_1500027.picoDst.root",0)'

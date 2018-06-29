@@ -155,7 +155,7 @@ void runPicoDpmAnaMaker(const Char_t *inputFile="test.list", const Char_t *outpu
   hfCuts->setCutVzMax(6.);
   hfCuts->setCutVzVpdVzMax(3.);
 
-/* SL16d triggers
+/* Run 14, SL16d triggers
   hfCuts->addTriggerId(450050);    // vpdmb-5-p-nobsmd-hlt 
   hfCuts->addTriggerId(450060);    // vpdmb-5-p-nobsmd-hlt 
   hfCuts->addTriggerId(450005);    // vpdmb-5-p-nobsmd 
@@ -163,7 +163,7 @@ void runPicoDpmAnaMaker(const Char_t *inputFile="test.list", const Char_t *outpu
   hfCuts->addTriggerId(450025);    // vpdmb-5-p-nobsmd 
 */
 
-	//SL16j triggers
+	//Run16 SL16j triggers
   hfCuts->addTriggerId(520802);    // VPDMB-5-p-hlt
   hfCuts->addTriggerId(520812);    // VPDMB-5-p-hlt 
   hfCuts->addTriggerId(520822);    // VPDMB-5-p-hlt
@@ -181,10 +181,6 @@ void runPicoDpmAnaMaker(const Char_t *inputFile="test.list", const Char_t *outpu
 	hfCuts->setCutNHitsFitMinHist(20); //for histograms, Vanek
   hfCuts->setCutRequireHFT(true);
 
-  hfCuts->setCutDcaMin(0.009,StHFCuts::kPion); //federic 1aug2016
-  //hfCuts->setCutDcaMin(0.01,StHFCuts::kKaon); //federic 1aug2016
-  hfCuts->setCutDcaMin(0.007,StHFCuts::kKaon); //federic 3aug2016
-
   //hfCuts->setCutNHitsFitnHitsMax(0.52);  kvapil
  
   // ---------------------------------------------------
@@ -196,8 +192,13 @@ void runPicoDpmAnaMaker(const Char_t *inputFile="test.list", const Char_t *outpu
   // -- ADD USER CUTS HERE ----------------------------
 
 	hfCuts->setCutEta(1.);
-
+/*
+  //---------------------------------FOR FIXED RECTANGULAR CUTS------------------------------------------------ 
 	hfCuts->setCutTripletdV0Max(0.022);
+
+  hfCuts->setCutDcaMin(0.009,StHFCuts::kPion); //federic 1aug2016
+  //hfCuts->setCutDcaMin(0.01,StHFCuts::kKaon); //federic 1aug2016
+  hfCuts->setCutDcaMin(0.007,StHFCuts::kKaon); //federic 3aug2016
 	
 	//-----------SECONDARY TRIPLET CUTS----------------------------
 	float dcaDaughters12Max, dcaDaughters23Max, dcaDaughters31Max;
@@ -224,6 +225,41 @@ void runPicoDpmAnaMaker(const Char_t *inputFile="test.list", const Char_t *outpu
   //Single track pt
   hfCuts->setCutPtRange(0.5,50.0,StHFCuts::kPion);
   hfCuts->setCutPtRange(0.5,50.0,StHFCuts::kKaon);
+  //___________________________________________________________________________________________________________
+*/
+  //---------------------------------FOR TMVA RECTANGULAR CUTS------------------------------------------------ 
+	hfCuts->setCutTripletdV0Max(0.025);
+
+  hfCuts->setCutDcaMin(0.006,StHFCuts::kPion); //Vanek
+  hfCuts->setCutDcaMin(0.006,StHFCuts::kKaon); //Vanek
+	
+	//-----------SECONDARY TRIPLET CUTS----------------------------
+	float dcaDaughters12Max, dcaDaughters23Max, dcaDaughters31Max;
+  float decayLengthMin, decayLengthMax;
+	float cosThetaMin, massMin, massMax;
+
+	dcaDaughters12Max = 0.01;
+	dcaDaughters23Max = 0.01;
+	dcaDaughters31Max = 0.01;
+
+	decayLengthMin = 0.002;
+	decayLengthMax = 0.2;
+
+	cosThetaMin = 0.995;
+	massMin = 1.7;
+	massMax = 2.1;
+
+	hfCuts->setCutSecondaryTriplet(dcaDaughters12Max, dcaDaughters23Max, dcaDaughters31Max,
+				 decayLengthMin, decayLengthMax, 				 
+				 cosThetaMin, massMin, massMax);
+  // --- Lomnitz cuts to remove noise from ghosting
+	//------------------------------------------------------------
+
+  //Single track pt
+  hfCuts->setCutPtRange(0.3,50.0,StHFCuts::kPion);
+  hfCuts->setCutPtRange(0.3,50.0,StHFCuts::kKaon);
+  //___________________________________________________________________________________________________________
+
 
 	hfCuts->setCutPtQA(0.3); //p_T used in createQA() in StPicoDpmAnaMaker.cxx
   //TPC setters
@@ -234,11 +270,17 @@ void runPicoDpmAnaMaker(const Char_t *inputFile="test.list", const Char_t *outpu
 	//for histograms
 	hfCuts->setCutTPCNSigmaHadronHist(1.0, 1); //1 = pion
 	hfCuts->setCutTPCNSigmaHadronHist(1.0, 2); //2 = kaon
+
   //TOF setters, need to set pt range as well
   hfCuts->setCutTOFDeltaOneOverBeta(0.05, StHFCuts::kKaon);
-  hfCuts->setCutPtotRangeHybridTOF(0.5,50.0,StHFCuts::kKaon);
-  hfCuts->setCutTOFDeltaOneOverBeta(0.06, StHFCuts::kPion);
-  hfCuts->setCutPtotRangeHybridTOF(0.5,50.0,StHFCuts::kPion);
+  //hfCuts->setCutPtotRangeHybridTOF(0.5,50.0,StHFCuts::kKaon); //for standard rectangular cuts
+  hfCuts->setCutPtotRangeHybridTOF(0.3,50.0,StHFCuts::kKaon); //for TMVA
+
+  hfCuts->setCutTOFDeltaOneOverBeta(0.06, StHFCuts::kPion); 
+  //hfCuts->setCutPtotRangeHybridTOF(0.5,50.0,StHFCuts::kPion); //for standard rectangular cuts
+  hfCuts->setCutPtotRangeHybridTOF(0.3,50.0,StHFCuts::kPion); //for TMVA
+
+  //hfCuts->setCutPtotRangeTOF(0.3,50.0,StHFCuts::kPion); //for K TOF, anternative to hybrid TOF K
 
   // set refmultCorr
 //  cout<<"test"<<endl;

@@ -510,7 +510,8 @@ int StPicoDpmAnaMaker::createCandidates() {
         // -- Kaon selection
         // -- TOF
 		//if( !mHFCuts->isHybridTOFHadron(kaon, mHFCuts->getTofBetaBase(kaon), StHFCuts::kKaon) ) continue; //SL16d
-        if( !mHFCuts->isHybridTOFHadron(kaon, mHFCuts->getTofBetaBase(kaon, mPicoDst->event()->bField()), StHFCuts::kKaon) ) continue; //SL16j, Vanek
+        if( !mHFCuts->isHybridTOFKaon(kaon, mHFCuts->getTofBetaBase(kaon, mPicoDst->event()->bField())) ) continue; //SL16j, Vanek, hybrid TOF kaons, probably not needed here
+        //if( !mHFCuts->isTOFKaon(kaon, mHFCuts->getTofBetaBase(kaon, mPicoDst->event()->bField())) ) continue; //SL16j, Vanek, TOF kaons - alternative to hybrid method
         if (mIdxPicoKaons[idxKaon] == mIdxPicoPions[idxPion1]|| mIdxPicoKaons[idxKaon] == mIdxPicoPions[idxPion2] || mIdxPicoPions[idxPion1] == mIdxPicoPions[idxPion2]) continue;
 				if ( !isCloseTracks(pion1,kaon,mPrimVtx, mBField)) continue;
 				if ( !isCloseTracks(kaon,pion2,mPrimVtx, mBField)) continue;
