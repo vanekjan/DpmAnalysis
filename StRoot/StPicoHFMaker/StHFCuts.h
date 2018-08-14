@@ -14,6 +14,7 @@
  *            Michael Lomnitz (mrlomnitz@lbl.gov)
  *            Guannan Xie     (guannanxie@lbl.gov)
  *            Miroslav Simko  (msimko@bnl.gov)
+ *            Jan Vanek       (vanek@ujf.cas.cz)
  *
  *  ** Code Maintainer
  *
@@ -54,6 +55,7 @@ class StHFCuts : public StPicoCutsBase
 	bool hasGoodNSigmaHist(StPicoTrack const *track, int hadrFlag) const;
 	bool hasGoodTripletdV0Max(StHFTriplet const &triplet) const;
 	bool hasGoodPtQA(StPicoTrack const *track) const;
+  bool hasGoodTripletDaughtersDCAtoPV(StHFTriplet const &triplet) const;
 
 
 //--------------------------------------------------------------------------
@@ -72,6 +74,11 @@ class StHFCuts : public StPicoCutsBase
   float decayLengthMin, float decayLengthMax, 
 	float cosThetaMin, float massMin, float massMax);
 
+  void setCutSecondaryTripletHighPt(float dcaDaughters12Max, float dcaDaughters23Max, float dcaDaughters31Max, 
+  float decayLengthMin, float decayLengthMax, 
+	float cosThetaMin, float massMin, float massMax,
+  float PtThreshold);
+
   void setCutSecondaryPairDcaToPvMax(float dcaToPvMax){ mSecondaryPairDcaToPvMax = dcaToPvMax; }
 
   void setCutTertiaryPairDcaToPvMax(float dcaToPvMax) { mTertiaryPairDcaToPvMax = dcaToPvMax; }
@@ -84,6 +91,8 @@ class StHFCuts : public StPicoCutsBase
 	void setCutEta(float eta) { mEta = eta; }
 	void setCutTPCNSigmaHadronHist(float nSigHadr, int hadrFlag);
 	void setCutTripletdV0Max(float dV0MaxSetCut) {mdV0MaxCut = dV0MaxSetCut;}
+  void setCutTripletdV0MaxHighPt(float dV0MaxSetCut) {mdV0MaxCut_02 = dV0MaxSetCut;}
+  void setCutSecondaryDaughtersDCAtoPVmin(float dcaMin) { mDcaMinDaughter = dcaMin; }
 //--------------------------------------------------------------------------------------------------------
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --   
@@ -115,6 +124,8 @@ class StHFCuts : public StPicoCutsBase
   const float&    cutSecondaryTripletMassMin()            const;
   const float&    cutSecondaryTripletMassMax()            const;
 
+  const float&    cutHighPtThreshold()                    const;
+
 //----MY GETTERS------------------------------------------------------------------------------------------
 
 	
@@ -135,6 +146,8 @@ class StHFCuts : public StPicoCutsBase
 	float mNSigProtonHist;
 
 	float mdV0MaxCut;
+
+  float mDcaMinDaughter;
 
 	float mPtQA;
 
@@ -174,6 +187,22 @@ class StHFCuts : public StPicoCutsBase
   float mSecondaryTripletMassMin;
   float mSecondaryTripletMassMax;
 
+  // ------------------------------------------
+  // -- Cuts of secondary triplet (high pT) //added by Vanek
+  // ------------------------------------------
+  float mSecondaryTripletDcaDaughters12Max_02;
+  float mSecondaryTripletDcaDaughters23Max_02;
+  float mSecondaryTripletDcaDaughters31Max_02;
+  float mSecondaryTripletDecayLengthMin_02; 
+  float mSecondaryTripletDecayLengthMax_02; 
+  float mSecondaryTripletCosThetaMin_02;
+  float mSecondaryTripletMassMin_02;
+  float mSecondaryTripletMassMax_02;
+
+  float mdV0MaxCut_02;
+
+  float mHighPtThreshold;
+
   ClassDef(StHFCuts,1)
 };
 
@@ -201,12 +230,28 @@ inline void StHFCuts::setCutSecondaryTriplet(float dcaDaughters12Max, float dcaD
   mSecondaryTripletDcaDaughters31Max = dcaDaughters31Max; 
   mSecondaryTripletDecayLengthMin = decayLengthMin; mSecondaryTripletDecayLengthMax = decayLengthMax; 
   mSecondaryTripletCosThetaMin = cosThetaMin;
-  mSecondaryTripletMassMin = massMin; mSecondaryTripletMassMax = massMax; 
+  mSecondaryTripletMassMin = massMin; mSecondaryTripletMassMax = massMax;
+
+  mHighPtThreshold = 0; //Set default value. If want to use high-pT, call StHFCuts::setCutSecondaryTripletHighPt() AFTER StHFCuts::setCutSecondaryTriplet() in you run macro.
 
   // setting up the doublet
   mSecondaryPairDcaDaughtersMax = mSecondaryTripletDcaDaughters12Max;
   mSecondaryPairDecayLengthMin = mSecondaryTripletDecayLengthMin;
   mSecondaryPairDcaDaughtersMax = mSecondaryTripletDecayLengthMax;
+}
+
+inline void StHFCuts::setCutSecondaryTripletHighPt(float dcaDaughters12Max, float dcaDaughters23Max, float dcaDaughters31Max, 
+					     float decayLengthMin, float decayLengthMax, 
+					     float cosThetaMin, float massMin, float massMax,
+               float PtThreshold)  {
+  // setting up the triplet
+  mSecondaryTripletDcaDaughters12Max_02 = dcaDaughters12Max; mSecondaryTripletDcaDaughters23Max_02 = dcaDaughters23Max; 
+  mSecondaryTripletDcaDaughters31Max_02 = dcaDaughters31Max; 
+  mSecondaryTripletDecayLengthMin_02 = decayLengthMin; mSecondaryTripletDecayLengthMax_02 = decayLengthMax; 
+  mSecondaryTripletCosThetaMin_02 = cosThetaMin;
+  mSecondaryTripletMassMin_02 = massMin; mSecondaryTripletMassMax_02 = massMax;
+
+  mHighPtThreshold = PtThreshold;
 }
 
 inline const float&    StHFCuts::cutSecondaryPairDcaDaughtersMax()       const { return mSecondaryPairDcaDaughtersMax; }
@@ -233,5 +278,7 @@ inline const float&    StHFCuts::cutSecondaryTripletDecayLengthMax()     const {
 inline const float&    StHFCuts::cutSecondaryTripletCosThetaMin()        const { return mSecondaryTripletCosThetaMin; }
 inline const float&    StHFCuts::cutSecondaryTripletMassMin()            const { return mSecondaryTripletMassMin; }
 inline const float&    StHFCuts::cutSecondaryTripletMassMax()            const { return mSecondaryTripletMassMax; }
+
+inline const float&    StHFCuts::cutHighPtThreshold()                    const { return mHighPtThreshold; }
 
 #endif

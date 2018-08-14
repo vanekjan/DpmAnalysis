@@ -163,19 +163,22 @@ void runPicoDpmAnaMaker(const Char_t *inputFile="test.list", const Char_t *outpu
   hfCuts->addTriggerId(450025);    // vpdmb-5-p-nobsmd 
 */
 
-	//Run16 SL16j triggers
-  hfCuts->addTriggerId(520802);    // VPDMB-5-p-hlt
-  hfCuts->addTriggerId(520812);    // VPDMB-5-p-hlt 
-  hfCuts->addTriggerId(520822);    // VPDMB-5-p-hlt
-  hfCuts->addTriggerId(520832);    // VPDMB-5-p-hlt
-  hfCuts->addTriggerId(520842);    // VPDMB-5-p-hlt
-
-	hfCuts->addTriggerId(520001);    // VPDMB-5-p-sst
+  //Run16 SL16j triggers //try to comment hlt triggers
+  //hfCuts->addTriggerId(520802);    // VPDMB-5-p-hlt, subset of VPDMB-5-p-sst
+  //hfCuts->addTriggerId(520812);    // VPDMB-5-p-hlt, subset of VPDMB-5-p-sst
+  //hfCuts->addTriggerId(520822);    // VPDMB-5-p-hlt, subset of VPDMB-5-p-sst
+  //hfCuts->addTriggerId(520832);    // VPDMB-5-p-hlt, subset of VPDMB-5-p-sst
+  //hfCuts->addTriggerId(520842);    // VPDMB-5-p-hlt, subset of VPDMB-5-p-sst
+/*
+  hfCuts->addTriggerId(520001);    // VPDMB-5-p-sst (production 1, physics stream)
   hfCuts->addTriggerId(520011);    // VPDMB-5-p-sst 
   hfCuts->addTriggerId(520021);    // VPDMB-5-p-sst
   hfCuts->addTriggerId(520031);    // VPDMB-5-p-sst
   hfCuts->addTriggerId(520041);    // VPDMB-5-p-sst
   hfCuts->addTriggerId(520051);    // VPDMB-5-p-sst
+*/
+  hfCuts->addTriggerId(570002);    // VPDMB-5-nosst (production 2, nosst stream)
+  hfCuts->addTriggerId(570001);    // VPDMB-5-sst (production 2, sst stream )
 	
   hfCuts->setCutNHitsFitMin(15); //kvapil 20 to 15, for analysis (TTree)
 	hfCuts->setCutNHitsFitMinHist(20); //for histograms, Vanek
@@ -228,30 +231,61 @@ void runPicoDpmAnaMaker(const Char_t *inputFile="test.list", const Char_t *outpu
   //___________________________________________________________________________________________________________
 */
   //---------------------------------FOR TMVA RECTANGULAR CUTS------------------------------------------------ 
-	hfCuts->setCutTripletdV0Max(0.025);
-
-  hfCuts->setCutDcaMin(0.006,StHFCuts::kPion); //Vanek
-  hfCuts->setCutDcaMin(0.006,StHFCuts::kKaon); //Vanek
+  
+  //daugter DCA to PV (default value used for creating arrays of good identified particle candidates)
+  hfCuts->setCutDcaMin(0.006,StHFCuts::kPion); //orig. 0.006
+  hfCuts->setCutDcaMin(0.006,StHFCuts::kKaon); //
 	
-	//-----------SECONDARY TRIPLET CUTS----------------------------
-	float dcaDaughters12Max, dcaDaughters23Max, dcaDaughters31Max;
+	//-----------SECONDARY TRIPLET CUTS - LOW pT----------------------------
+  hfCuts->setCutSecondaryDaughtersDCAtoPVmin(0.007); //more tight cut for low-pT to reduce output file size
+
+  hfCuts->setCutTripletdV0Max(0.025); //orig. 0.025
+ 
+  float dcaDaughters12Max, dcaDaughters23Max, dcaDaughters31Max;
   float decayLengthMin, decayLengthMax;
 	float cosThetaMin, massMin, massMax;
 
-	dcaDaughters12Max = 0.01;
-	dcaDaughters23Max = 0.01;
-	dcaDaughters31Max = 0.01;
+	dcaDaughters12Max = 0.011; //orig. 0.009
+	dcaDaughters23Max = 0.011;
+	dcaDaughters31Max = 0.011;
 
-	decayLengthMin = 0.002;
-	decayLengthMax = 0.2;
+	decayLengthMin = 0.009; //orig. 0.002
+	decayLengthMax = 0.2;   //orig. 0.2
 
-	cosThetaMin = 0.995;
+	cosThetaMin = 0.996; //orig. 0.995
 	massMin = 1.7;
 	massMax = 2.1;
 
 	hfCuts->setCutSecondaryTriplet(dcaDaughters12Max, dcaDaughters23Max, dcaDaughters31Max,
 				 decayLengthMin, decayLengthMax, 				 
 				 cosThetaMin, massMin, massMax);
+
+  //-----------SECONDARY TRIPLET CUTS - HIGH pT----------------------------
+  hfCuts->setCutTripletdV0MaxHighPt(0.035); //orig. 0.025
+
+  float dcaDaughters12Max_02, dcaDaughters23Max_02, dcaDaughters31Max_02;
+  float decayLengthMin_02, decayLengthMax_02;
+	float cosThetaMin_02, massMin_02, massMax_02;
+  float ptThreshold;
+
+	dcaDaughters12Max_02 = 0.011; //orig. 0.009
+	dcaDaughters23Max_02 = 0.011;
+	dcaDaughters31Max_02 = 0.011;
+
+	decayLengthMin_02 = 0.002; //orig. 0.002
+	decayLengthMax_02 = 0.2;   //orig. 0.2
+
+	cosThetaMin_02 = 0.975; //orig. 0.995
+	massMin_02 = 1.7;
+	massMax_02 = 2.1;
+
+  ptThreshold = 4.; 
+
+	hfCuts->setCutSecondaryTripletHighPt(dcaDaughters12Max_02, dcaDaughters23Max_02, dcaDaughters31Max_02,
+				 decayLengthMin_02, decayLengthMax_02, 				 
+				 cosThetaMin_02, massMin_02, massMax_02,
+         ptThreshold);
+
   // --- Lomnitz cuts to remove noise from ghosting
 	//------------------------------------------------------------
 

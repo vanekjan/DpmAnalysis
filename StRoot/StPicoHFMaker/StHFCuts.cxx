@@ -96,12 +96,25 @@ bool StHFCuts::isGoodTertiaryVertexPair(StHFPair const & pair) const {
 bool StHFCuts::isGoodSecondaryVertexTriplet(StHFTriplet const & triplet) const {
   // -- check for good secondary vertex triplet
 
-  return ( triplet.m() > mSecondaryTripletMassMin && triplet.m() < mSecondaryTripletMassMax &&
+  if(triplet.pt() < mHighPtThreshold || mHighPtThreshold == 0)
+  {
+    return ( triplet.m() > mSecondaryTripletMassMin && triplet.m() < mSecondaryTripletMassMax &&
 	   std::cos(triplet.pointingAngle()) > mSecondaryTripletCosThetaMin &&
 	   triplet.decayLength() > mSecondaryTripletDecayLengthMin && triplet.decayLength() < mSecondaryTripletDecayLengthMax &&
 	   triplet.dcaDaughters12() < mSecondaryTripletDcaDaughters12Max &&
 	   triplet.dcaDaughters23() < mSecondaryTripletDcaDaughters23Max &&
 	   triplet.dcaDaughters31() < mSecondaryTripletDcaDaughters31Max);
+  }
+  else
+  {
+    return ( triplet.m() > mSecondaryTripletMassMin_02 && triplet.m() < mSecondaryTripletMassMax_02 &&
+	   std::cos(triplet.pointingAngle()) > mSecondaryTripletCosThetaMin_02 &&
+	   triplet.decayLength() > mSecondaryTripletDecayLengthMin_02 && triplet.decayLength() < mSecondaryTripletDecayLengthMax_02 &&
+	   triplet.dcaDaughters12() < mSecondaryTripletDcaDaughters12Max_02 &&
+	   triplet.dcaDaughters23() < mSecondaryTripletDcaDaughters23Max_02 &&
+	   triplet.dcaDaughters31() < mSecondaryTripletDcaDaughters31Max_02);
+  }  
+  
 }
 
 // _________________________________________________________
@@ -140,7 +153,15 @@ bool StHFCuts::hasGoodNSigmaHist(StPicoTrack const *track, int hadrFlag) const {
 
 // _________________________________________________________
 bool StHFCuts::hasGoodTripletdV0Max(StHFTriplet const &triplet) const {
-	return( triplet.dV0Max() > mdV0MaxCut );
+	
+  if(triplet.pt() < mHighPtThreshold || mHighPtThreshold == 0)
+  {
+    return( triplet.dV0Max() < mdV0MaxCut );
+  }
+  else
+  {
+    return( triplet.dV0Max() < mdV0MaxCut_02 );
+  } 
 
 }
 
@@ -148,5 +169,12 @@ bool StHFCuts::hasGoodTripletdV0Max(StHFTriplet const &triplet) const {
 bool StHFCuts::hasGoodPtQA(StPicoTrack const *track) const {
 
 	return ( track->gPt() > mPtQA  );
+}
+
+// _________________________________________________________
+bool StHFCuts::hasGoodTripletDaughtersDCAtoPV(StHFTriplet const &triplet) const
+{
+  return ( triplet.particle1Dca() > mDcaMinDaughter && triplet.particle2Dca() > mDcaMinDaughter && triplet.particle3Dca() > mDcaMinDaughter );
+
 }
 

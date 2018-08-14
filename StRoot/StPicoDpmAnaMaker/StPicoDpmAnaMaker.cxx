@@ -100,7 +100,9 @@ int StPicoDpmAnaMaker::InitHF() {
 
 //	cout<<"RefMult1"<<endl;
 	mRefmultCorrUtil->setVzForWeight(6, -6.0, 6.0);
-    mRefmultCorrUtil->readScaleForWeight("StRoot/StRefMultCorr/macros/weight_grefmult_VpdnoVtx_Vpd5_Run16.txt"); //for new StRefMultCorr, Run16, SL16j
+  //comment what is not needed
+  //mRefmultCorrUtil->readScaleForWeight("StRoot/StRefMultCorr/macros/weight_grefmult_VpdnoVtx_Vpd5_Run16.txt"); //for new StRefMultCorr, Run16, SL16j, production 1, physics stream
+  mRefmultCorrUtil->readScaleForWeight("StRoot/StRefMultCorr/macros/weight_grefmult_VpdnoVtx_Vpd5_Run16_prod2.txt"); //for new StRefMultCorr, Run16, SL16j, production 2, sst stream
 //	cout<<"RefMult2"<<endl;
 
    // -------------- USER VARIABLES -------------------------
@@ -114,52 +116,52 @@ int StPicoDpmAnaMaker::InitHF() {
 	//Pion1
 	ntp_Dmeson->Branch("pi1_runId", &pi1_runId, "pi1_runId/I"); 		 			//Int_t pi1_runId
 	ntp_Dmeson->Branch("pi1_eventId", &pi1_eventId, "pi1_eventId/I"); 			//Int_t pi1_eventId
-	ntp_Dmeson->Branch("pi1_phi", &pi1_phi, "pi1_phi/F");			 			//Float_t pi1_phi
+	//ntp_Dmeson->Branch("pi1_phi", &pi1_phi, "pi1_phi/F");			 			//Float_t pi1_phi
 	ntp_Dmeson->Branch("pi1_eta", &pi1_eta, "pi1_eta/F");			 			//Float_t pi1_eta
 	ntp_Dmeson->Branch("pi1_pt", &pi1_pt, "pi1_pt/F");				 			//Float_t pi1_pt
 	ntp_Dmeson->Branch("pi1_dca", &pi1_dca, "pi1_dca/F");			 			//Float_t pi1_dca
-	ntp_Dmeson->Branch("pi1_dedx", &pi1_dedx, "pi1_dedx/F");			 			//Float_t pi1_dedx
+	//ntp_Dmeson->Branch("pi1_dedx", &pi1_dedx, "pi1_dedx/F");			 			//Float_t pi1_dedx
 	ntp_Dmeson->Branch("pi1_nSigma", &pi1_nSigma, "pi1_nSigma/F");	 			//Float_t pi1_nSigma
 	ntp_Dmeson->Branch("pi1_nHitFit", &pi1_nHitFit, "pi1_nHitFit/I"); 			//Int_t pi1_nHitFit
 	ntp_Dmeson->Branch("pi1_nHitsMax", &pi1_nHitsMax, "pi1_nHitsMax/I");			//Int_t pi1_nHitsMax
-	ntp_Dmeson->Branch("pi1_nHitdedx", &pi1_nHitdedx, "pi1_nHitdedx/I");			//Int_t pi1_nHitdedx
+	//ntp_Dmeson->Branch("pi1_nHitdedx", &pi1_nHitdedx, "pi1_nHitdedx/I");			//Int_t pi1_nHitdedx
 	ntp_Dmeson->Branch("pi1_TOFinvbeta", &pi1_TOFinvbeta, "pi1_TOFinvbeta/F");	//Float_t pi1_TOFinvbeta
 	ntp_Dmeson->Branch("pi1_betaBase", &pi1_betaBase, "pi1_betaBase/F");			//Float_t pi1_betaBase
 
 	//Pion2
-	ntp_Dmeson->Branch("pi2_runId", &pi2_runId, "pi2_runId/I"); 		 			//Int_t pi2_runId
-	ntp_Dmeson->Branch("pi2_eventId", &pi2_eventId, "pi2_eventId/I"); 			//Int_t pi2_eventId
-	ntp_Dmeson->Branch("pi2_phi", &pi2_phi, "pi2_phi/F");			 			//Float_t pi2_phi
+	//ntp_Dmeson->Branch("pi2_runId", &pi2_runId, "pi2_runId/I"); 		 			//Int_t pi2_runId
+	//ntp_Dmeson->Branch("pi2_eventId", &pi2_eventId, "pi2_eventId/I"); 			//Int_t pi2_eventId
+	//ntp_Dmeson->Branch("pi2_phi", &pi2_phi, "pi2_phi/F");			 			//Float_t pi2_phi
 	ntp_Dmeson->Branch("pi2_eta", &pi2_eta, "pi2_eta/F");			 			//Float_t pi2_eta
 	ntp_Dmeson->Branch("pi2_pt", &pi2_pt, "pi2_pt/F");				 			//Float_t pi2_pt
 	ntp_Dmeson->Branch("pi2_dca", &pi2_dca, "pi2_dca/F");			 			//Float_t pi2_dca
-	ntp_Dmeson->Branch("pi2_dedx", &pi2_dedx, "pi2_dedx/F");			 			//Float_t pi2_dedx
+	//ntp_Dmeson->Branch("pi2_dedx", &pi2_dedx, "pi2_dedx/F");			 			//Float_t pi2_dedx
 	ntp_Dmeson->Branch("pi2_nSigma", &pi2_nSigma, "pi2_nSigma/F");	 			//Float_t pi2_nSigma
 	ntp_Dmeson->Branch("pi2_nHitFit", &pi2_nHitFit, "pi2_nHitFit/I"); 			//Int_t pi2_nHitFit
 	ntp_Dmeson->Branch("pi2_nHitsMax", &pi2_nHitsMax, "pi2_nHitsMax/I"); 			//Int_t pi2_nHitsMax
-	ntp_Dmeson->Branch("pi2_nHitdedx", &pi2_nHitdedx, "pi2_nHitdedx/I");			//Int_t pi2_nHitdedx
+	//ntp_Dmeson->Branch("pi2_nHitdedx", &pi2_nHitdedx, "pi2_nHitdedx/I");			//Int_t pi2_nHitdedx
 	ntp_Dmeson->Branch("pi2_TOFinvbeta", &pi2_TOFinvbeta, "pi2_TOFinvbeta/F");	//Float_t pi2_TOFinvbeta
 	ntp_Dmeson->Branch("pi2_betaBase", &pi2_betaBase, "pi2_betaBase/F");			//Float_t pi2_betaBase
 
 	//Kaon
-	ntp_Dmeson->Branch("k_runId", &k_runId, "k_runId/I"); 		 		//Int_t k_runId
-	ntp_Dmeson->Branch("k_eventId", &k_eventId, "k_eventId/I"); 			//Int_t k_eventId
-	ntp_Dmeson->Branch("k_phi", &k_phi, "k_phi/F");			 			//Float_t k_phi
+	//ntp_Dmeson->Branch("k_runId", &k_runId, "k_runId/I"); 		 		//Int_t k_runId
+	//ntp_Dmeson->Branch("k_eventId", &k_eventId, "k_eventId/I"); 			//Int_t k_eventId
+	//ntp_Dmeson->Branch("k_phi", &k_phi, "k_phi/F");			 			//Float_t k_phi
 	ntp_Dmeson->Branch("k_eta", &k_eta, "k_eta/F");			 			//Float_t k_eta
 	ntp_Dmeson->Branch("k_pt", &k_pt, "k_pt/F");				 			//Float_t k_pt
 	ntp_Dmeson->Branch("k_dca", &k_dca, "k_dca/F");			 			//Float_t k_dca
-	ntp_Dmeson->Branch("k_dedx", &k_dedx, "k_dedx/F");			 		//Float_t k_dedx
+	//ntp_Dmeson->Branch("k_dedx", &k_dedx, "k_dedx/F");			 		//Float_t k_dedx
 	ntp_Dmeson->Branch("k_nSigma", &k_nSigma, "k_nSigma/F");	 			//Float_t k_nSigma
 	ntp_Dmeson->Branch("k_nHitFit", &k_nHitFit, "k_nHitFit/I"); 			//Int_t k_nHitFit
 	ntp_Dmeson->Branch("k_nHitsMax", &k_nHitsMax, "k_nHitsMax/I"); 			//Int_t k_nHitsMax
-	ntp_Dmeson->Branch("k_nHitdedx", &k_nHitdedx, "k_nHitdedx/I");		//Int_t k_nHitdedx
+	//ntp_Dmeson->Branch("k_nHitdedx", &k_nHitdedx, "k_nHitdedx/I");		//Int_t k_nHitdedx
 	ntp_Dmeson->Branch("k_TOFinvbeta", &k_TOFinvbeta, "k_TOFinvbeta/F");	//Float_t k_TOFinvbeta
 	ntp_Dmeson->Branch("k_betaBase", &k_betaBase, "k_betaBase/F");		//Float_t k_betaBase
 
 	//dca, flag, prim. vertex
 	ntp_Dmeson->Branch("mdcaMax", &mdcaMax, "mdcaMax/F"); //Float_t mdcaMax
 	ntp_Dmeson->Branch("flag", &flag, "flag/I");		  //Int_t flag
-	ntp_Dmeson->Branch("primVz", &primVz, "primVz/F"); //Float_t primVz
+	//ntp_Dmeson->Branch("primVz", &primVz, "primVz/F"); //Float_t primVz
 
 	//D meson
 	ntp_Dmeson->Branch("D_theta", &D_theta, "D_theta/F"); 	//Float_t D_theta
@@ -172,8 +174,8 @@ int StPicoDpmAnaMaker::InitHF() {
 
 	//centrality, refmult
 	ntp_Dmeson->Branch("mcentrality", &mcentrality, "mcentrality/F");		//Float_t cmentrality
-	ntp_Dmeson->Branch("refmult", &refmult, "refmult/F");				//Float_t refmult
-	ntp_Dmeson->Branch("mrefmultcorr", &mrefmultcorr, "mrefmultcorr/F");	//Float_t mrefmultcorr
+	//ntp_Dmeson->Branch("refmult", &refmult, "refmult/F");				//Float_t refmult
+	//ntp_Dmeson->Branch("mrefmultcorr", &mrefmultcorr, "mrefmultcorr/F");	//Float_t mrefmultcorr
 	ntp_Dmeson->Branch("mreweight", &mreweight, "mreweight/F");				//Float_t mreweight
 
 	//BBCx, ZDCx
@@ -494,7 +496,7 @@ int StPicoDpmAnaMaker::createQA(){
 // _________________________________________________________
 int StPicoDpmAnaMaker::createCandidates() {
   // Creating candidates for D+- 3 body decay
-  // D+- -> K+2Pi decay
+  // D- -> K+2Pi decay
 
   for (unsigned short idxPion1 = 0; idxPion1 < mIdxPicoPions.size(); ++idxPion1) {
     StPicoTrack const *pion1 = mPicoDst->track(mIdxPicoPions[idxPion1]);
@@ -517,8 +519,14 @@ int StPicoDpmAnaMaker::createCandidates() {
 				if ( !isCloseTracks(kaon,pion2,mPrimVtx, mBField)) continue;
         // -- Making triplet
         StHFTriplet triplet(pion1,pion2,kaon,mHFCuts->getHypotheticalMass(StHFCuts::kPion),mHFCuts->getHypotheticalMass(StHFCuts::kPion),mHFCuts->getHypotheticalMass(StHFCuts::kKaon), mIdxPicoPions[idxPion1],mIdxPicoPions[idxPion2],mIdxPicoKaons[idxKaon], mPrimVtx, mBField);
-        if(mHFCuts->hasGoodTripletdV0Max(triplet)) continue;
-        if (!mHFCuts->isGoodSecondaryVertexTriplet(triplet)) continue;
+        if(!mHFCuts->hasGoodTripletdV0Max(triplet)) continue;
+        if(!mHFCuts->isGoodSecondaryVertexTriplet(triplet)) continue;
+
+        if(triplet.pt() < mHFCuts->cutHighPtThreshold())
+        {
+          if( !mHFCuts->hasGoodTripletDaughtersDCAtoPV(triplet) ) continue;
+        }
+
         mPicoHFEvent->addHFSecondaryVertexTriplet(&triplet);
 
       }  // for (unsigned short idxKaon = 0; idxKaon < mIdxPicoKaons.size(); ++idxKaon)
@@ -564,7 +572,7 @@ int StPicoDpmAnaMaker::analyzeCandidates() {
       StPicoTrack const* pion2 = mPicoDst->track(triplet->particle2Idx());
       StPicoTrack const* kaon = mPicoDst->track(triplet->particle3Idx());
 
-      // Greates distance between tracks
+      // Greatest distance between tracks
       float const dcaDaughters_12 = triplet->dcaDaughters12();
       float const dcaDaughters_23 = triplet->dcaDaughters23();
       float const dcaDaughters_13 = triplet->dcaDaughters31();
@@ -647,60 +655,61 @@ int StPicoDpmAnaMaker::analyzeCandidates() {
       // Saving to TTree
 	    pi1_runId = mPicoHFEvent->runId();
       pi1_eventId = mPicoHFEvent->eventId();
-      pi1_phi = pion1->gMom(mPrimVtx,mBField).phi();
+      //pi1_phi = pion1->gMom(mPrimVtx,mBField).phi();
       pi1_eta = pion1->gMom(mPrimVtx,mBField).pseudoRapidity();
       pi1_pt  = pion1->gPt();
       pi1_dca = triplet->particle1Dca();
-      pi1_dedx = pion1->dEdx();
+      //pi1_dedx = pion1->dEdx();
       pi1_nSigma = pion1->nSigmaPion();
       pi1_nHitFit = pion1->nHitsFit();
 	  	pi1_nHitsMax = pion1->nHitsMax();
-      pi1_nHitdedx = pion1->nHitsDedx();
+      //pi1_nHitdedx = pion1->nHitsDedx();
       pi1_TOFinvbeta = pion1TOFinvbeta;
       pi1_betaBase = pion1BetaBase;
 
-      pi2_runId = mPicoHFEvent->runId();
-      pi2_eventId = mPicoHFEvent->eventId();
-      pi2_phi = pion2->gMom(mPrimVtx,mBField).phi();
+      //pi2_runId = mPicoHFEvent->runId();
+      //pi2_eventId = mPicoHFEvent->eventId();
+      //pi2_phi = pion2->gMom(mPrimVtx,mBField).phi();
       pi2_eta = pion2->gMom(mPrimVtx,mBField).pseudoRapidity();
       pi2_pt = pion2->gPt();
       pi2_dca = triplet->particle2Dca();
-      pi2_dedx = pion2->dEdx();
+      //pi2_dedx = pion2->dEdx();
       pi2_nSigma = pion2->nSigmaPion();
       pi2_nHitFit = pion2->nHitsFit();
 	  	pi2_nHitsMax = pion2->nHitsMax();
-      pi2_nHitdedx = pion2->nHitsDedx();
+      //pi2_nHitdedx = pion2->nHitsDedx();
       pi2_TOFinvbeta = pion2TOFinvbeta;
       pi2_betaBase = pion2BetaBase;
 
-      k_runId = mPicoHFEvent->runId();
-      k_eventId = mPicoHFEvent->eventId();
-      k_phi = kaon->gMom(mPrimVtx,mBField).phi();
+      //k_runId = mPicoHFEvent->runId();
+      //k_eventId = mPicoHFEvent->eventId();
+      //k_phi = kaon->gMom(mPrimVtx,mBField).phi();
       k_eta = kaon->gMom(mPrimVtx,mBField).pseudoRapidity();
       k_pt = kaon->gPt();
       k_dca = triplet->particle3Dca();
-      k_dedx = kaon->dEdx();
+      //k_dedx = kaon->dEdx();
       k_nSigma = kaon->nSigmaKaon();
       k_nHitFit = kaon->nHitsFit();
 	  	k_nHitsMax = kaon->nHitsMax();
-      k_nHitdedx = kaon->nHitsDedx();
+      //k_nHitdedx = kaon->nHitsDedx();
       k_TOFinvbeta = kaonTOFinvbeta;
       k_betaBase = kaonBetaBase;
 
       mdcaMax = dcaMax;
       //flag already saved on lines 554 - 564
-      primVz = mPrimVtx.z();
+      //primVz = mPrimVtx.z();
 
       D_theta = triplet->pointingAngle();
       D_decayL = triplet->decayLength();
       D_phi = triplet->phi();
       D_eta = triplet->eta();
-      D_pt = sqrt(pow(triplet->px(),2.0)+pow(triplet->py(),2.0));
+      //D_pt = sqrt(pow(triplet->px(),2.0)+pow(triplet->py(),2.0));
+      D_pt = triplet->pt();
       D_mass = triplet->m();
       D_dV0Max = triplet->dV0Max();
       mcentrality = centrality;
-      refmult = mPicoDst->event()->refMult();
-      mrefmultcorr = refmultCor;
+      //refmult = mPicoDst->event()->refMult();
+      //mrefmultcorr = refmultCor;
       mreweight = reweight;
 
 //			mZDCx = ZDCx;
@@ -788,7 +797,8 @@ bool StPicoDpmAnaMaker::isHadron(StPicoTrack const * const trk, int pidFlag) con
 // _________________________________________________________
 bool StPicoDpmAnaMaker::isPion(StPicoTrack const * const trk) const {
   // -- good pion
-   StThreeVectorF t = trk->pMom();
+   //StThreeVectorF t = trk->pMom();
+   StThreeVectorF t = trk->gMom();
    if (fabs(t.pseudoRapidity()) > 1.) return false; //pridano fabs 1212
    //if (!mHFCuts->isHybridTOFHadron(trk, mHFCuts->getTofBetaBase(trk), StHFCuts::kPion) ) return false; //SL16d
 	 if (!mHFCuts->isHybridTOFHadron(trk, mHFCuts->getTofBetaBase(trk, mPicoDst->event()->bField()), StHFCuts::kPion) ) return false; //SL16j, Vanek
@@ -799,7 +809,8 @@ bool StPicoDpmAnaMaker::isPion(StPicoTrack const * const trk) const {
 // _________________________________________________________
 bool StPicoDpmAnaMaker::isKaon(StPicoTrack const * const trk) const {
   // -- good kaon
-  StThreeVectorF t = trk->pMom();
+  //StThreeVectorF t = trk->pMom();
+  StThreeVectorF t = trk->gMom();
   if (fabs(t.pseudoRapidity()) > 1.) return false;//pridano fabs 1212
 	//if (!mHFCuts->isHybridTOFHadron(trk, mHFCuts->getTofBetaBase(trk), StHFCuts::kKaon) ) return false; //SL16d
   if (!mHFCuts->isHybridTOFHadron(trk, mHFCuts->getTofBetaBase(trk, mPicoDst->event()->bField()), StHFCuts::kKaon) ) return false; //SL16j, Vanek
@@ -846,7 +857,7 @@ bool StPicoDpmAnaMaker::isCloseTracks(StPicoTrack const * const trk1, StPicoTrac
   StThreeVectorF const p1AtDcaToP2 = p1StraightLine.at(ss.first);
   StThreeVectorF const p2AtDcaToP1 = p2StraightLine.at(ss.second);
   float const dca = (p1AtDcaToP2-p2AtDcaToP1).mag();
-  if(dca > 0.009) return false;
+  if(dca > mHFCuts->cutSecondaryTripletDcaDaughters12Max()) return false; //removed hard-coded cut 0.009
 // -- good pair
   return true;
 }
