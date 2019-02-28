@@ -169,14 +169,14 @@ void runPicoDpmAnaMaker(const Char_t *inputFile="test.list", const Char_t *outpu
   //hfCuts->addTriggerId(520822);    // VPDMB-5-p-hlt, subset of VPDMB-5-p-sst
   //hfCuts->addTriggerId(520832);    // VPDMB-5-p-hlt, subset of VPDMB-5-p-sst
   //hfCuts->addTriggerId(520842);    // VPDMB-5-p-hlt, subset of VPDMB-5-p-sst
-/*
+
   hfCuts->addTriggerId(520001);    // VPDMB-5-p-sst (production 1, physics stream)
   hfCuts->addTriggerId(520011);    // VPDMB-5-p-sst 
   hfCuts->addTriggerId(520021);    // VPDMB-5-p-sst
   hfCuts->addTriggerId(520031);    // VPDMB-5-p-sst
   hfCuts->addTriggerId(520041);    // VPDMB-5-p-sst
   hfCuts->addTriggerId(520051);    // VPDMB-5-p-sst
-*/
+
   hfCuts->addTriggerId(570002);    // VPDMB-5-nosst (production 2, nosst stream)
   hfCuts->addTriggerId(570001);    // VPDMB-5-sst (production 2, sst stream )
 	
@@ -279,7 +279,7 @@ void runPicoDpmAnaMaker(const Char_t *inputFile="test.list", const Char_t *outpu
 	massMin_02 = 1.7;
 	massMax_02 = 2.1;
 
-  ptThreshold = 4.; 
+  ptThreshold = 4.;
 
 	hfCuts->setCutSecondaryTripletHighPt(dcaDaughters12Max_02, dcaDaughters23Max_02, dcaDaughters31Max_02,
 				 decayLengthMin_02, decayLengthMax_02, 				 
